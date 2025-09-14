@@ -6,21 +6,28 @@ function App() {
     <div className="App">
       {/* HEADER */}
       <header className="navbar">
-        <div className="logo-container">
-          <img src="/logo.png" alt="TradingOptics Logo" className="logo" />
-        </div>
-        <nav>
+        <a href="/" className="logo-container" aria-label="TradingOptics Home">
+          <img src="/logo.png" alt="TradingOptics Logo" className="logo-img" />
+        </a>
+
+        <nav className="nav">
           <a href="#offerings">Offerings</a>
           <a href="#syllabus">Syllabus</a>
           <a href="#pricing">Pricing</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a href="https://calendly.com/tradingoptics" className="book-btn">
+
+        <a
+          href="https://calendly.com/tradingoptics"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="book-btn"
+        >
           Book a Session
         </a>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="hero">
         <div className="hero-text">
           <span className="tagline">Learn charts the simple, smart way</span>
@@ -32,7 +39,12 @@ function App() {
             access. Practical lessons, live chart walk-throughs, and a
             repeatable plan so you stop guessing and start executing.
           </p>
-          <a href="https://calendly.com/tradingoptics" className="book-btn">
+          <a
+            href="https://calendly.com/tradingoptics"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="book-btn"
+          >
             Book a Session
           </a>
         </div>
@@ -40,13 +52,13 @@ function App() {
         <div className="chart-container">
           <h3>Live Chart • BTC/USDT REAL-TIME</h3>
           <iframe
-            src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_f62e9&symbol=BINANCE%3ABTCUSDT&interval=1&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&studies_overrides={}"
+            src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_live&symbol=BINANCE%3ABTCUSDT&interval=1&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1"
             width="100%"
             height="400"
             frameBorder="0"
-            allowTransparency
             scrolling="no"
             title="TradingView Live Chart"
+            allowTransparency
           ></iframe>
           <p className="chart-caption">
             We’ll practice directly on TradingView: drawing tools, indicators,
@@ -98,6 +110,8 @@ function App() {
             </ul>
             <a
               href="https://calendly.com/tradingoptics"
+              target="_blank"
+              rel="noopener noreferrer"
               className="book-btn small"
             >
               Book Starter
@@ -107,7 +121,9 @@ function App() {
           <div className="pricing-card highlight">
             <span className="badge">Best Value</span>
             <h3>Bootcamp</h3>
-            <p className="price">$349</p>
+            <p className="price">
+              $349 <span className="per">/ 4 weeks</span>
+            </p>
             <ul>
               <li>4× 60-min sessions</li>
               <li>Full syllabus & exercises</li>
@@ -116,6 +132,8 @@ function App() {
             </ul>
             <a
               href="https://calendly.com/tradingoptics"
+              target="_blank"
+              rel="noopener noreferrer"
               className="book-btn small"
             >
               Start Bootcamp
@@ -124,7 +142,9 @@ function App() {
 
           <div className="pricing-card">
             <h3>VIP</h3>
-            <p className="price">$99/mo</p>
+            <p className="price">
+              $99<span className="per">/mo</span>
+            </p>
             <ul>
               <li>Weekly office hours</li>
               <li>Private community</li>
@@ -132,6 +152,8 @@ function App() {
             </ul>
             <a
               href="https://calendly.com/tradingoptics"
+              target="_blank"
+              rel="noopener noreferrer"
               className="book-btn small"
             >
               Join VIP
@@ -151,7 +173,12 @@ function App() {
           Email <a href="mailto:support@tradingoptics.org">support@tradingoptics.org</a>{" "}
           or book a session any time via Calendly.
         </p>
-        <a href="https://calendly.com/tradingoptics" className="book-btn">
+        <a
+          href="https://calendly.com/tradingoptics"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="book-btn"
+        >
           Book on Calendly
         </a>
       </section>
@@ -215,8 +242,8 @@ function App() {
       </section>
 
       {/* FOOTER */}
-      <footer>
-        <p>© 2025 TradingOptics. All rights reserved.</p>
+      <footer className="footer">
+        <p>© {new Date().getFullYear()} TradingOptics. All rights reserved.</p>
       </footer>
     </div>
   );
