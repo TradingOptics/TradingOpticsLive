@@ -1,21 +1,12 @@
 import React from "react";
 import "./styles.css";
 
-/**
- * TradingOptics – Single-page landing
- * - Live TradingView chart (responsive iframe)
- * - Hero + CTA
- * - Offerings / Syllabus / Pricing / Contact
- * - Refund Policy (clean, collapsible via <details>)
- * - Calendly buttons wired to: https://calendly.com/tradingoptics
- */
-
 const CALENDLY = "https://calendly.com/tradingoptics";
 
 export default function App() {
   return (
     <div className="to-page">
-      {/* Top Nav */}
+      {/* ==== NAV ==== */}
       <header className="to-nav">
         <div className="to-container to-nav-row">
           <div className="to-logo">TradingOptics</div>
@@ -38,7 +29,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* ==== HERO + CHART ==== */}
       <section className="to-hero">
         <div className="to-container to-hero-grid">
           <div className="to-hero-copy">
@@ -64,19 +55,16 @@ export default function App() {
             </div>
           </div>
 
-          {/* Live Chart Card */}
           <div className="to-card to-chart-card">
             <div className="to-card-head">
               <span className="to-card-title">Live Chart • BTC/USD (1m)</span>
               <span className="to-badge">REAL-TIME</span>
             </div>
 
-            {/* Responsive TradingView Advanced Chart – reliable iframe */}
             <div className="to-tv-wrap">
               <iframe
                 title="TradingView"
                 className="to-tv-iframe"
-                // TradingView advanced chart embed (no extra scripts required)
                 src={
                   "https://s.tradingview.com/widgetembed/?" +
                   [
@@ -109,48 +97,204 @@ export default function App() {
         </div>
       </section>
 
-      {/* Main Sections */}
       <main className="to-container to-main">
+        {/* ==== OFFERINGS (EXPANDED) ==== */}
         <section id="offerings" className="to-section">
-          <h2>Offerings</h2>
-          <ul className="to-list">
-            <li>
-              <strong>1-on-1 sessions:</strong> tailored coaching for your
-              goals.
-            </li>
-            <li>
-              <strong>Bootcamp:</strong> a structured path from foundations to
-              execution.
-            </li>
-            <li>
-              <strong>VIP community:</strong> weekly office hours, chat, and
-              accountability.
-            </li>
-          </ul>
+          <h2 className="to-h2">Offerings</h2>
+
+          <div className="to-grid to-grid--3">
+            <article className="to-tile">
+              <div className="to-tile__head">
+                <span className="to-tag">Beginner Friendly</span>
+                <h3 className="to-tile__title">1-on-1 Coaching</h3>
+              </div>
+              <p className="to-tile__text">
+                Tailored sessions focused on your goals: setup, workflow, and
+                clear trade plans you can execute with confidence.
+              </p>
+              <ul className="to-bullets">
+                <li>Personalized TradingView &amp; indicator setup</li>
+                <li>Clean charting workflow + risk framework</li>
+                <li>Live walk-throughs with your tickers</li>
+              </ul>
+              <a
+                className="to-btn to-btn--ghost"
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Book 1-on-1
+              </a>
+            </article>
+
+            <article className="to-tile">
+              <div className="to-tile__head">
+                <span className="to-tag to-tag--gold">Most Popular</span>
+                <h3 className="to-tile__title">Bootcamp</h3>
+              </div>
+              <p className="to-tile__text">
+                A structured path from foundations to execution. Build a
+                repeatable playbook and start trading with intent.
+              </p>
+              <ul className="to-bullets">
+                <li>4–6 guided sessions + homework</li>
+                <li>Entry/exit criteria &amp; position sizing</li>
+                <li>Repeatable playbook + post-trade review</li>
+              </ul>
+              <a
+                className="to-btn to-btn--ghost"
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Apply for Bootcamp
+              </a>
+            </article>
+
+            <article className="to-tile">
+              <div className="to-tile__head">
+                <span className="to-tag to-tag--green">Ongoing</span>
+                <h3 className="to-tile__title">VIP Community</h3>
+              </div>
+              <p className="to-tile__text">
+                Weekly office hours, chat, and accountability. Keep your edge
+                sharp with consistent feedback and support.
+              </p>
+              <ul className="to-bullets">
+                <li>Weekly calls + Q&amp;A</li>
+                <li>Private chat &amp; reviews</li>
+                <li>Accountability &amp; growth tracking</li>
+              </ul>
+              <a
+                className="to-btn to-btn--ghost"
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Join the Waitlist
+              </a>
+            </article>
+          </div>
         </section>
 
+        {/* ==== SYLLABUS (EXPANDED) ==== */}
         <section id="syllabus" className="to-section">
-          <h2>Syllabus</h2>
-          <p>From chart basics to execution and risk management.</p>
-          <ul className="to-list">
-            <li>Chart setup, drawing tools, and clean workflows</li>
-            <li>Trend, structure, support/resistance</li>
-            <li>Entries, exits, and position sizing</li>
-            <li>Playbook creation and repeatable processes</li>
-          </ul>
+          <h2 className="to-h2">Syllabus</h2>
+
+          <div className="to-syllabus">
+            <article className="to-module">
+              <h3>Module 1 — Foundations</h3>
+              <ul className="to-bullets">
+                <li>Clean charting environment &amp; data awareness</li>
+                <li>Market structure: trend, BOS, and pullbacks</li>
+                <li>Support/Resistance and key levels</li>
+              </ul>
+            </article>
+
+            <article className="to-module">
+              <h3>Module 2 — Execution</h3>
+              <ul className="to-bullets">
+                <li>Entry triggers with confluence</li>
+                <li>Position sizing &amp; risk/reward math</li>
+                <li>Trade management: add, reduce, exit</li>
+              </ul>
+            </article>
+
+            <article className="to-module">
+              <h3>Module 3 — Playbook</h3>
+              <ul className="to-bullets">
+                <li>Systematic setups &amp; checklists</li>
+                <li>Post-trade review &amp; journaling</li>
+                <li>Scaling rules &amp; consistency plan</li>
+              </ul>
+            </article>
+          </div>
         </section>
 
+        {/* ==== PRICING (TIERED) ==== */}
         <section id="pricing" className="to-section">
-          <h2>Pricing</h2>
-          <p>
-            Simple, transparent pricing — no surprises. Pay as you go for 1-on-1
-            sessions, or choose a bootcamp package for the best value. VIP
-            community is billed monthly.
+          <h2 className="to-h2">Pricing</h2>
+          <p className="to-muted">
+            Simple, transparent pricing — pick what fits your journey. No
+            surprises.
           </p>
+
+          <div className="to-grid to-grid--3 to-pricing">
+            <article className="to-tier">
+              <header className="to-tier__head">
+                <h3 className="to-tier__title">1-on-1 Session</h3>
+                <div className="to-price">
+                  <span className="to-price__num">$149</span>
+                  <span className="to-price__meta">per 60 min</span>
+                </div>
+              </header>
+              <ul className="to-bullets">
+                <li>Custom plan &amp; focused coaching</li>
+                <li>TradingView setup &amp; workflow</li>
+                <li>Recording (by request)</li>
+              </ul>
+              <a
+                className="to-btn to-btn--primary to-tier__cta"
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Book 1-on-1
+              </a>
+            </article>
+
+            <article className="to-tier to-tier--highlight">
+              <header className="to-tier__head">
+                <span className="to-flag">Best Value</span>
+                <h3 className="to-tier__title">Bootcamp</h3>
+                <div className="to-price">
+                  <span className="to-price__num">$599</span>
+                  <span className="to-price__meta">4-session package</span>
+                </div>
+              </header>
+              <ul className="to-bullets">
+                <li>Foundations → Execution → Playbook</li>
+                <li>Homework &amp; reviews</li>
+                <li>DM support between sessions</li>
+              </ul>
+              <a
+                className="to-btn to-btn--primary to-tier__cta"
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Apply for Bootcamp
+              </a>
+            </article>
+
+            <article className="to-tier">
+              <header className="to-tier__head">
+                <h3 className="to-tier__title">VIP Community</h3>
+                <div className="to-price">
+                  <span className="to-price__num">$79</span>
+                  <span className="to-price__meta">per month</span>
+                </div>
+              </header>
+              <ul className="to-bullets">
+                <li>Weekly office hours + Q&amp;A</li>
+                <li>Private chat &amp; accountability</li>
+                <li>Ongoing feedback on trades</li>
+              </ul>
+              <a
+                className="to-btn to-btn--primary to-tier__cta"
+                href={CALENDLY}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Join the Waitlist
+              </a>
+            </article>
+          </div>
         </section>
 
+        {/* ==== CONTACT ==== */}
         <section id="contact" className="to-section">
-          <h2>Contact</h2>
+          <h2 className="to-h2">Contact</h2>
           <p>
             Email{" "}
             <a href="mailto:support@tradingoptics.org">
@@ -168,7 +312,7 @@ export default function App() {
           </a>
         </section>
 
-        {/* Refund Policy – collapsible details keep page tidy */}
+        {/* ==== REFUND POLICY (unchanged structure, styled) ==== */}
         <section id="refund-policy" className="to-section">
           <details className="to-details" open>
             <summary className="to-details__summary">Refund Policy</summary>
@@ -180,7 +324,7 @@ export default function App() {
               </p>
 
               <h3>1-on-1 Coaching Sessions</h3>
-              <ul className="to-list">
+              <ul className="to-bullets">
                 <li>
                   <strong>Full refund</strong> if cancelled at least{" "}
                   <strong>24 hours</strong> before the scheduled session.
@@ -194,7 +338,7 @@ export default function App() {
               </ul>
 
               <h3>Bootcamp Programs</h3>
-              <ul className="to-list">
+              <ul className="to-bullets">
                 <li>
                   <strong>Full refund</strong> if you cancel{" "}
                   <strong>before the first session</strong> begins.
@@ -210,7 +354,7 @@ export default function App() {
               </ul>
 
               <h3>VIP Community / Mentorship</h3>
-              <ul className="to-list">
+              <ul className="to-bullets">
                 <li>
                   VIP access is billed <strong>monthly</strong>.
                 </li>
@@ -225,7 +369,7 @@ export default function App() {
               </ul>
 
               <h3>Rescheduling</h3>
-              <ul className="to-list">
+              <ul className="to-bullets">
                 <li>
                   Sessions may be rescheduled <strong>once without penalty</strong> if
                   requested at least <strong>12 hours</strong> in advance.
