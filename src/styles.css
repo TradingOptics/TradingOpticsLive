@@ -1,19 +1,20 @@
-/* ===========
-   TradingOptics – Global styles
-   =========== */
+/* ============================
+   TradingOptics – Site Styles
+   ============================ */
 
 :root {
   --bg: #0b0f0e;
-  --bg-2: #0e1413;
   --text: #e7f5ee;
   --muted: #a7c0b7;
   --card: #0f1715;
+  --card-2: #0e1413;
   --border: #1e2a27;
 
   --primary-1: #33e48a;
   --primary-2: #f1d14a;
+  --accent: #22c55e;
 
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
 }
 
 *,
@@ -34,13 +35,13 @@ body {
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
   color: var(--text);
-  background: radial-gradient(1000px 600px at 70% -10%, #1a2a25 0%, #0b0f0e 50%)
+  background: radial-gradient(1000px 600px at 70% -10%, #1a2a25 0%, #0b0f0e 55%)
       no-repeat,
-    radial-gradient(900px 600px at -10% 10%, #13201b 0%, #0b0f0e 60%) no-repeat,
+    radial-gradient(900px 600px at -10% 10%, #13201b 0%, #0b0f0e 65%) no-repeat,
     var(--bg);
 }
 
-/* Utility */
+/* Layout helpers */
 
 .to-container {
   width: min(1200px, 92vw);
@@ -48,8 +49,8 @@ body {
 }
 
 .to-page {
-  display: flex;
   min-height: 100%;
+  display: flex;
   flex-direction: column;
 }
 
@@ -67,14 +68,14 @@ body {
 .to-nav-row {
   display: grid;
   grid-template-columns: 1fr auto auto;
-  align-items: center;
   gap: 16px;
+  align-items: center;
   padding: 14px 0;
 }
 
 .to-logo {
   font-weight: 800;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
 }
 
 .to-nav-links {
@@ -122,6 +123,11 @@ body {
   box-shadow: 0 8px 24px rgba(51, 228, 138, 0.2);
 }
 
+.to-btn--ghost {
+  background: #121b18;
+  border: 1px solid var(--border);
+}
+
 .to-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
@@ -138,10 +144,6 @@ body {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 28px;
   align-items: start;
-}
-
-.to-hero-copy {
-  padding-top: 6px;
 }
 
 .to-pill {
@@ -205,7 +207,6 @@ body {
 .to-tv-wrap {
   position: relative;
   width: 100%;
-  /* Maintain aspect ratio while allowing height to grow on large screens */
   aspect-ratio: 16 / 9;
   min-height: 320px;
   overflow: hidden;
@@ -226,14 +227,14 @@ body {
   font-size: 14px;
 }
 
-/* Main sections */
+/* Sections */
 
 .to-main {
-  padding-bottom: 60px;
+  padding-bottom: 70px;
 }
 
 .to-section {
-  padding: 28px 0;
+  padding: 36px 0 14px;
   border-top: 1px solid var(--border);
 }
 
@@ -241,25 +242,150 @@ body {
   border-top: 0;
 }
 
-h2 {
-  margin: 0 0 10px;
+.to-h2 {
+  margin: 0 0 16px;
   font-size: clamp(22px, 3.3vw, 40px);
 }
 
-h3 {
-  margin: 18px 0 8px;
+.to-muted {
+  color: var(--muted);
 }
 
-.to-list {
-  margin: 10px 0 0 0;
+/* Offerings tiles */
+
+.to-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.to-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.to-tile {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.to-tile__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.to-tag {
+  font-size: 12px;
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.to-tag--gold {
+  background: linear-gradient(90deg, var(--primary-2), var(--primary-1));
+  color: #0e0f0d;
+  border: none;
+}
+
+.to-tag--green {
+  background: linear-gradient(90deg, #34d399, #10b981);
+  color: #0e0f0d;
+  border: none;
+}
+
+.to-tile__title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.to-tile__text {
+  color: var(--muted);
+  margin: 6px 0 10px;
+}
+
+.to-bullets {
+  margin: 10px 0 14px;
   padding-left: 18px;
-  color: var(--text);
 }
 
-.to-list li {
+.to-bullets li {
   margin: 6px 0;
-  line-height: 1.6;
-  color: var(--text);
+}
+
+/* Syllabus modules */
+
+.to-syllabus {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.to-module {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+/* Pricing tiers */
+
+.to-pricing .to-tier {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+}
+
+.to-tier--highlight {
+  background: linear-gradient(180deg, #10201a, #0f1715);
+  box-shadow: 0 10px 28px rgba(34, 197, 94, 0.1);
+  border-color: #214b3b;
+}
+
+.to-tier__head {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.to-flag {
+  justify-self: start;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary-1), var(--primary-2));
+  color: #0e0f0d;
+}
+
+.to-tier__title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.to-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.to-price__num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.to-price__meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.to-tier__cta {
+  width: 100%;
+  margin-top: 8px;
 }
 
 /* Refund collapsible */
@@ -297,7 +423,7 @@ h3 {
 
 .to-footer {
   margin-top: auto;
-  padding: 24px 0 40px;
+  padding: 26px 0 40px;
   border-top: 1px solid var(--border);
   color: var(--muted);
   text-align: center;
@@ -311,11 +437,22 @@ h3 {
   }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 980px) {
+  .to-grid--3,
+  .to-syllabus {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
   .to-hero-grid {
     grid-template-columns: 1fr;
   }
   .to-chart-card {
     order: 2;
+  }
+  .to-grid--3,
+  .to-syllabus {
+    grid-template-columns: 1fr;
   }
 }
