@@ -93,7 +93,6 @@ h2{margin:0 0 10px}
   display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; margin-top:16px;
 }
 .plan{
-  position:relative;
   background:linear-gradient(180deg, #0f1416 0%, #0d1213 100%);
   border:1px solid var(--border);
   border-radius:16px;
@@ -104,23 +103,33 @@ h2{margin:0 0 10px}
   border-color: rgba(38,208,124,.45);
   box-shadow: 0 8px 28px rgba(38,208,124,.18), var(--shadow);
 }
-.plan-head{position:relative; display:flex; align-items:baseline; gap:10px; margin-bottom:10px; padding-right:76px}
+
+/* header row for each plan */
+.plan-head{
+  position:relative;               /* anchor the tag to THIS row */
+  display:flex; align-items:baseline; gap:10px;
+  margin-bottom:10px;
+}
 .plan-title{margin:0; font-size:20px}
-.price{margin-left:auto; font-weight:800; font-size:22px}
+.price{
+  margin-left:auto;
+  font-weight:800; font-size:22px;
+  margin-right:90px;               /* reserve space under the tag */
+}
 .price .per{font-weight:600; font-size:14px; color:var(--muted); margin-left:3px}
 
-/* FIXED: tag now sits INSIDE the card, top-right, never above the card */
-.tag{
+/* the tag is now inside .plan-head and won't collide with price */
+.plan-head .tag{
   position:absolute;
-  right:12px;
-  top:10px;            /* was negative; now inside header */
-  transform:none;      /* no translate outside the card */
+  right:0;
+  top:-12px;                       /* floats just above the numbers */
   background:linear-gradient(90deg, var(--accent1), var(--accent2));
   color:#0b130f; font-weight:800; font-size:12px;
   padding:6px 10px; border-radius:999px;
   border:1px solid rgba(0,0,0,.2);
   box-shadow: 0 6px 16px rgba(0,0,0,.35);
   white-space:nowrap;
+  z-index:1;
 }
 
 /* contact / refund */
@@ -142,5 +151,6 @@ h2{margin:0 0 10px}
 @media (max-width: 860px){
   .two-col{grid-template-columns:1fr}
   .pricing{grid-template-columns:1fr; gap:16px}
-  .tag{right:12px; top:8px} /* keep tidy on small screens */
+  .plan-head .tag{right:0; top:-10px}
+  .price{margin-right:84px}
 }
