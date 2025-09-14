@@ -1,16 +1,241 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TradingOptics</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <script defer src="https://s3.tradingview.com/tv.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TradingOptics — Master TradingView & Technical Analysis</title>
+  <meta name="description" content="1-on-1 coaching for beginners, a guided bootcamp, and VIP access. Practical lessons, live chart walk-throughs, and a repeatable plan." />
+  <link rel="preconnect" href="https://www.tradingview.com" />
+  <style>
+    /* ====== Base ====== */
+    :root{
+      --bg:#0b0f0d;
+      --panel:#101614;
+      --muted:#a3b3ac;
+      --text:#e6f3ed;
+      --accent1:#36d399;
+      --accent2:#ffe55e;
+      --ring: 0 0 0 0.2rem rgba(54,211,153,.25);
+      --radius:14px;
+      --max:1200px;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";line-height:1.5}
+    a{color:inherit}
+    .container{max-width:var(--max);margin-inline:auto;padding:24px}
+    .row{display:grid;gap:28px}
+    @media (min-width:1024px){.row{grid-template-columns:1.05fr .95fr;align-items:start}}
+
+    /* ====== Header ====== */
+    .nav{display:flex;justify-content:space-between;align-items:center;padding-block:10px}
+    .brand{font-weight:700;letter-spacing:.2px}
+    .button, .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:.5rem;padding:.8rem 1.15rem;border-radius:999px;font-weight:600;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#04110b;
+      border:0;cursor:pointer;text-decoration:none
+    }
+    .chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .9rem;border-radius:999px;
+      color:#cdeee1;background:#10221b;border:1px solid #113824;font-weight:600;font-size:.9rem}
+
+    /* ====== Panels ====== */
+    .panel{background: radial-gradient(1200px 600px at 85% -10%,#123122 8%,transparent 60%) ,var(--panel);
+      border:1px solid #13231c;border-radius:var(--radius);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+    .pad{padding:20px}
+    .pad-lg{padding:24px}
+    h1{font-size:clamp(2.2rem,4.2vw+1rem,4rem);line-height:1.05;margin:.2em 0 .5em;font-weight:800}
+    h2{font-size:clamp(1.4rem,1.2vw+1rem,2rem);margin:0 0 .6rem}
+    p{margin:.5rem 0;color:var(--muted)}
+    ul{margin:.4rem 0 0 1.25rem;color:var(--muted)}
+    li{margin:.25rem 0}
+    hr{border:0;border-top:1px solid #1a2a22;margin:24px 0}
+
+    /* ====== Chart ====== */
+    .chart-wrap{display:flex;flex-direction:column;gap:12px}
+    .badge{align-self:flex-end;background:#153122;border:1px solid #1f4a34;color:#bdf2dc;font-weight:700;border-radius:999px;padding:.35rem .7rem;font-size:.8rem}
+    #tv-chart{width:100%;height:420px;border-radius:12px;overflow:hidden;border:1px solid #1a2a22}
+    @media (max-width:600px){#tv-chart{height:360px}}
+
+    /* ====== Two-up grid ====== */
+    .grid-2{display:grid;gap:28px}
+    @media (min-width:960px){.grid-2{grid-template-columns:1fr 1fr}}
+
+    /* ====== Refund accordion ====== */
+    details.accordion{
+      border:1px solid #1a2a22;border-radius:12px;overflow:hidden;background:#0f1513
+    }
+    details[open] .summary{border-bottom:1px solid #1a2a22}
+    .summary{list-style:none;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .summary::-webkit-details-marker{display:none}
+    .summary h2{margin:0}
+    .accordion .content{padding:6px 18px 18px}
+    .muted{color:var(--muted)}
+
+    /* ====== Footer ====== */
+    .footer{color:#93a99e;padding:24px 0;text-align:center;font-size:.95rem}
+  </style>
+</head>
+<body>
+  <header class="container nav">
+    <div class="brand">TradingOptics</div>
+    <a class="btn button" href="https://calendly.com/tradingoptics" target="_blank" rel="noopener">Book a Session</a>
+  </header>
+
+  <main class="container">
+    <section class="row">
+      <!-- Left (hero copy) -->
+      <div>
+        <div class="chip">Learn charts the simple, smart way</div>
+        <h1>Master TradingView & Technical Analysis</h1>
+        <p>1-on-1 coaching for beginners, a guided bootcamp, and VIP community access. Practical lessons, live chart walk-throughs, and a repeatable plan so you stop guessing and start executing.</p>
+        <p style="margin-top:18px">
+          <a class="button" href="https://calendly.com/tradingoptics" target="_blank" rel="noopener">Book a Session</a>
+        </p>
+      </div>
+
+      <!-- Right (live chart) -->
+      <div class="panel pad chart-wrap">
+        <div class="muted">Live Chart • BTC/USD (1m)</div>
+        <span class="badge">REAL-TIME</span>
+        <div id="tv-chart"></div>
+        <p class="muted" style="margin:8px 0 0">
+          We’ll practice directly on TradingView: drawing tools, indicators, entries/exits, and risk management.
+        </p>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Content sections -->
+    <section class="grid-2">
+      <div>
+        <h2>Offerings</h2>
+        <ul>
+          <li><strong>1-on-1 sessions:</strong> tailored coaching for your goals.</li>
+          <li><strong>Bootcamp:</strong> a structured path from foundations to execution.</li>
+          <li><strong>VIP community:</strong> weekly office hours, chat, and accountability.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Syllabus</h2>
+        <ul>
+          <li>Chart setup, drawing tools, and clean workflows</li>
+          <li>Trend, structure, support/resistance</li>
+          <li>Entries, exits, and position sizing</li>
+          <li>Playbook creation and repeatable processes</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="grid-2" style="margin-top:18px">
+      <div>
+        <h2>Pricing</h2>
+        <p>Simple, transparent pricing — no surprises. Pay as you go for 1-on-1 sessions, or choose a bootcamp package for the best value. VIP community is billed monthly.</p>
+      </div>
+
+      <div>
+        <h2>Contact</h2>
+        <p>Email <a class="muted" href="mailto:support@tradingoptics.org">support@tradingoptics.org</a> or book a session any time via Calendly.</p>
+        <p><a class="button" href="https://calendly.com/tradingoptics" target="_blank" rel="noopener">Book on Calendly</a></p>
+      </div>
+    </section>
+
+    <!-- Compact Refund Policy (collapsible) -->
+    <section style="margin-top:28px">
+      <details class="accordion">
+        <summary class="summary">
+          <h2>Refund Policy</h2>
+          <span class="muted">Tap to expand</span>
+        </summary>
+        <div class="content">
+          <p class="muted">We want every student to feel confident and supported. Because our services are delivered live and require scheduling, we offer the following:</p>
+
+          <h3>1-on-1 Coaching Sessions</h3>
+          <ul>
+            <li><strong>Full refund</strong> if cancelled at least <strong>24 hours</strong> before the scheduled session.</li>
+            <li><strong>50% refund</strong> if cancelled within 24 hours.</li>
+            <li><strong>No refund</strong> for no-shows or missed sessions.</li>
+          </ul>
+
+          <h3>Bootcamp Programs</h3>
+          <ul>
+            <li><strong>Full refund</strong> if you cancel <strong>before the first session</strong> begins.</li>
+            <li><strong>50% refund</strong> if you cancel after the first session but before the second session.</li>
+            <li><strong>No refunds</strong> once two or more sessions have been attended.</li>
+          </ul>
+
+          <h3>VIP Community / Mentorship</h3>
+          <ul>
+            <li>VIP access is billed <strong>monthly</strong>.</li>
+            <li>You may <strong>cancel anytime</strong> before your next billing cycle.</li>
+            <li><strong>No partial refunds</strong> for unused time during an active month.</li>
+          </ul>
+
+          <h3>Rescheduling</h3>
+          <ul>
+            <li>Sessions may be rescheduled <strong>once without penalty</strong> if requested at least <strong>12 hours</strong> in advance.</li>
+            <li>Repeated rescheduling or last-minute changes may be treated as a cancellation.</li>
+          </ul>
+
+          <p class="muted"><em>If you have questions about this policy, email us at <a href="mailto:support@tradingoptics.org">support@tradingoptics.org</a>.</em></p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    © 2025 TradingOptics. All rights reserved.
+  </footer>
+
+  <!-- TradingView script (official) -->
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    // Lazy-instantiate the widget once it comes into view.
+    (function () {
+      let created = false;
+      const el = document.getElementById('tv-chart');
+
+      function createWidget() {
+        if (created || !window.TradingView) return;
+        created = true;
+        new TradingView.widget({
+          autosize: true,
+          symbol: "BINANCE:BTCUSDT",
+          interval: "1",                // 1-minute
+          timezone: "Etc/UTC",
+          theme: "dark",
+          style: "1",                   // candles
+          locale: "en",
+          enable_publishing: false,
+          hide_legend: false,
+          withdateranges: true,
+          hide_top_toolbar: false,
+          hide_side_toolbar: false,
+          container_id: "tv-chart"
+        });
+      }
+
+      // If script is already available, try immediately; otherwise wait.
+      if (window.TradingView) {
+        // Defer to next tick to allow layout to settle
+        setTimeout(() => {
+          // Prefer lazy load via IntersectionObserver for perf
+          if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(e => { if (e.isIntersecting) { createWidget(); io.disconnect(); }});
+            }, { rootMargin: "120px" });
+            io.observe(el);
+          } else {
+            createWidget();
+          }
+        }, 0);
+      } else {
+        // Fallback if tv.js loads a bit later
+        window.addEventListener('load', () => {
+          setTimeout(createWidget, 200);
+        });
+      }
+    })();
+  </script>
+</body>
 </html>
