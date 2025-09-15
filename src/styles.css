@@ -1,185 +1,48 @@
-:root {
-  --bg: #0b0f0f;
-  --panel: #111618;
-  --muted: #9fb0b5;
-  --text: #ecf3f4;
-  --border: #1f2a2e;
-  --accent1: #26d07c;
-  --accent2: #e7d83a;
-}
-
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-body {
-  margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
-  color: var(--text);
-  background: radial-gradient(900px 600px at 15% 0%, #10221a 0%, transparent 60%),
-              radial-gradient(900px 800px at 85% 10%, #171c1f 0%, transparent 55%),
-              var(--bg);
-}
-
-/* ------- Header ------- */
+/* Navbar */
 .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  padding: 14px 20px;
-  background: rgba(11, 15, 15, 0.8);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 1rem 2rem;
+  background: transparent;
 }
 
-/* LOGO SIZE FIX */
-.logo-container { display: inline-flex; align-items: center; }
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .logo-img {
-  height: 36px;         /* <= controls the logo size */
+  height: 50px;       /* bigger for visibility */
   width: auto;
-  max-width: 200px;
   object-fit: contain;
-  display: block;
+  opacity: 0.8;       /* ✅ semi-transparent */
+  transition: opacity 0.3s ease;
 }
 
-.nav {
-  display: inline-flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: center;
+.logo-img:hover {
+  opacity: 1;         /* full on hover */
 }
 
-.nav a {
-  color: var(--text);
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #facc15;     /* gold accent */
+}
+
+.navbar-right a {
+  margin-left: 1.5rem;
+  color: #fff;
   text-decoration: none;
-  opacity: 0.85;
-}
-.nav a:hover { opacity: 1; }
-
-.book-btn {
-  display: inline-block;
-  padding: 10px 16px;
-  border-radius: 12px;
-  text-decoration: none;
-  color: #0b130f;
-  font-weight: 650;
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  box-shadow: 0 4px 18px rgba(38,208,124,.25);
+  font-weight: 500;
 }
 
-/* ------- Layout ------- */
-.App { max-width: 1150px; margin: 0 auto; padding: 0 20px 32px; }
-
-/* ------- Hero ------- */
-.hero {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 24px;
-  align-items: start;
-  margin: 22px 0 28px;
-}
-.hero-text .tagline {
-  display: inline-block;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(38,208,124,.1);
-  color: #a5f1ce;
-  border: 1px solid rgba(38,208,124,.25);
-  margin-bottom: 14px;
-  font-size: 14px;
-}
-.hero h1 { font-size: 42px; line-height: 1.08; margin: 0 0 12px; }
-.hero p { color: var(--muted); margin: 0 0 16px; max-width: 58ch; }
-
-/* ------- Chart ------- */
-.chart-container {
-  background: linear-gradient(180deg, var(--panel) 0%, #0f1416 100%);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
-}
-.chart-container h3 { margin: 0 0 8px; }
-.chart-caption { color: var(--muted); margin-top: 8px; }
-
-/* ------- Sections ------- */
-.section { margin: 28px 0; }
-.section h2 { margin: 0 0 10px; }
-.section ul { padding-left: 18px; margin: 0; }
-.section ul li { margin: 8px 0; }
-
-/* ------- Pricing ------- */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 16px;
-  margin-top: 12px;
-}
-
-.pricing-card {
-  position: relative;
-  background: linear-gradient(180deg, #0f1416 0%, #0d1213 100%);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 6px 22px rgba(0,0,0,.35);
-}
-.pricing-card h3 { margin: 0 0 6px; }
-.price { margin: 0 0 10px; font-weight: 800; font-size: 22px; }
-.price .per { font-weight: 600; font-size: 14px; color: var(--muted); margin-left: 4px; }
-.pricing-card ul { margin: 0 0 12px; padding-left: 18px; }
-.pricing-card .book-btn.small { display: block; text-align: center; }
-
-/* Highlighted (Bootcamp) */
-.pricing-card.highlight {
-  border-color: rgba(38,208,124,.45);
-  box-shadow: 0 8px 28px rgba(38,208,124,.18), 0 6px 22px rgba(0,0,0,.35);
-  padding-top: 32px;            /* space for badge */
-}
-.pricing-card .badge {
-  position: absolute;
-  top: 8px; right: 10px;        /* inside the card, not over title */
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  color: #0b130f;
-  font-weight: 800;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.2);
-  white-space: nowrap;
-}
-
-/* ------- Contact / Refund ------- */
-.contact {
-  background: rgba(255,255,255,.02);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-}
-.refund h3 { margin: 14px 0 6px; }
-
-/* ------- Footer ------- */
-footer {
-  margin-top: 28px;
-  color: var(--muted);
-  text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-/* ------- Responsive ------- */
-@media (max-width: 1024px) {
-  .hero { grid-template-columns: 1fr; }
-}
-@media (max-width: 760px) {
-  .navbar {
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    gap: 10px;
-  }
-  .nav { grid-column: 1 / -1; justify-content: flex-start; flex-wrap: wrap; gap: 12px; }
-  .book-btn { justify-self: end; }
-  .logo-img { height: 30px; }   /* smaller on mobile */
-  .pricing-grid { grid-template-columns: 1fr; }
+.navbar-right .btn {
+  margin-left: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: linear-gradient(to right, #00ff88, #ffee00);
+  color: #000;
+  font-weight: bold;
 }
