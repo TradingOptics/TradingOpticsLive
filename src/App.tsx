@@ -1,88 +1,72 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 
-function TVChart() {
-  const ref = useRef<HTMLDivElement | null>(null);
-
+export default function App() {
+  // Load TradingView script once
   useEffect(() => {
-    // Load TradingView script once
-    const id = "tv-script";
-    if (!document.getElementById(id)) {
-      const s = document.createElement("script");
-      s.id = id;
-      s.src = "https://s3.tradingview.com/tv.js";
-      s.async = true;
-      document.body.appendChild(s);
-      s.onload = () => init();
-    } else {
-      // If already loaded, init immediately
-      init();
-    }
-
-    function init() {
-      if (!ref.current || !(window as any).TradingView) return;
-      // Clear any previous widget in this container
-      ref.current.innerHTML = "";
-      /* eslint-disable */
-      new (window as any).TradingView.widget({
-        width: "100%",
-        height: 360,
-        symbol: "BINANCE:BTCUSDT",
-        interval: "1",
-        timezone: "Etc/UTC",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        hide_side_toolbar: false,
-        allow_symbol_change: true,
-        container_id: "tv-container",
-      });
-      /* eslint-enable */
-    }
+    const s = document.createElement("script");
+    s.src = "https://s3.tradingview.com/tv.js";
+    s.async = true;
+    s.onload = () => {
+      // @ts-ignore
+      if (window.TradingView) {
+        // @ts-ignore
+        new window.TradingView.widget({
+          autosize: true,
+          symbol: "BINANCE:BTCUSDT",
+          interval: "1",
+          timezone: "Etc/UTC",
+          theme: "dark",
+          style: "1",
+          locale: "en",
+          gridColor: "rgba(42,46,57,0)",
+          hide_top_toolbar: false,
+          hide_legend: false,
+          allow_symbol_change: true,
+          container_id: "tv-chart",
+        });
+      }
+    };
+    document.body.appendChild(s);
+    return () => {
+      document.body.removeChild(s);
+    };
   }, []);
 
-  return <div id="tv-container" ref={ref} />;
-}
-
-export default function App() {
   return (
-    <div className="page">
-      {/* NAV */}
-      <header className="nav">
-        <a href="#" className="brand">
-          <img
-            src="/logo.png"
-            alt="TradingOptics"
-            className="brand__logo"
-            decoding="async"
-          />
+    <div className="site">
+      {/* Header */}
+      <header className="header">
+        <a className="brand" href="#top" aria-label="TradingOptics">
+          <img src="/logo.png" alt="TradingOptics logo" className="brand__logo" />
           <span className="brand__text">TradingOptics</span>
         </a>
 
-        <nav className="nav__links">
+        <nav className="nav">
           <a href="#offerings">Offerings</a>
           <a href="#syllabus">Syllabus</a>
           <a href="#pricing">Pricing</a>
           <a href="#contact">Contact</a>
-          <a
-            className="btn btn--primary"
-            href="https://calendly.com/tradingoptics"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Book a Session
-          </a>
         </nav>
+
+        <a
+          className="btn btn--primary header__cta"
+          href="https://calendly.com/tradingoptics"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Book a Session
+        </a>
       </header>
 
-      {/* HERO */}
-      <section className="hero">
+      {/* Hero */}
+      <section className="hero" id="top">
         <div className="hero__copy">
-          <div className="pill">Learn charts the simple, smart way</div>
-          <h1>
-            Master TradingView &amp; <br /> Technical Analysis
+          <p className="tag">Learn charts the simple, smart way</p>
+          <h1 className="hero__title">
+            Master TradingView & <br /> Technical Analysis
           </h1>
-          <p className="muted">
+          <p className="hero__lead">
             1-on-1 coaching for beginners, a guided bootcamp, and VIP community
             access. Practical lessons, live chart walk-throughs, and a
             repeatable plan so you stop guessing and start executing.
@@ -99,28 +83,25 @@ export default function App() {
         </div>
 
         <div className="hero__card">
-          <div className="hero__cardHeader">
-            <span>Live Chart • BTC/USD (1m)</span>
-            <span className="badge badge--live">REAL-TIME</span>
+          <div className="chart__head">
+            <div className="chip chip--green">REAL-TIME</div>
+            <div className="chart__title">Live Chart • BTC/USDT</div>
           </div>
-          <div className="hero__tv">
-            <TVChart />
-          </div>
-          <p className="muted small">
+          <div id="tv-chart" className="chart__area" />
+          <p className="chart__foot">
             We’ll practice directly on TradingView: drawing tools, indicators,
             entries/exits, and risk management.
           </p>
         </div>
       </section>
 
-      {/* TWO COLUMN: Offerings + Syllabus */}
-      <section className="grid2 section">
-        <div id="offerings">
+      {/* Offerings + Syllabus */}
+      <section className="grid-two" id="offerings">
+        <div className="panel">
           <h2>Offerings</h2>
-          <ul className="bullets">
+          <ul className="list">
             <li>
-              <strong>1-on-1 sessions:</strong> tailored coaching for your
-              goals.
+              <strong>1-on-1 sessions:</strong> tailored coaching for your goals.
             </li>
             <li>
               <strong>Bootcamp:</strong> a structured path from foundations to
@@ -133,9 +114,9 @@ export default function App() {
           </ul>
         </div>
 
-        <div id="syllabus">
+        <div className="panel" id="syllabus">
           <h2>Syllabus</h2>
-          <ul className="bullets">
+          <ul className="list">
             <li>Chart setup, drawing tools, and clean workflows</li>
             <li>Trend, structure, support/resistance</li>
             <li>Entries, exits, and position sizing</li>
@@ -144,87 +125,99 @@ export default function App() {
         </div>
       </section>
 
-      {/* PRICING */}
-      <section id="pricing" className="section">
+      {/* Pricing – NEW STYLE */}
+      <section className="pricing" id="pricing">
         <h2>Pricing</h2>
-        <p className="muted center">
+        <p className="pricing__lead">
           Simple, transparent pricing — no surprises. Pay-as-you-go for 1-on-1,
           or choose Bootcamp for the best value. VIP is billed monthly.
         </p>
 
-        <div className="cards">
+        <div className="pricing__grid">
           {/* Starter */}
-          <div className="card">
-            <div className="card__header">
-              <h3>Starter</h3>
-              <div className="price">$99</div>
+          <article className="plan">
+            <div className="plan__header">
+              <h3 className="plan__title">Starter</h3>
+              <div className="plan__price">
+                <span className="plan__price-main">$99</span>
+              </div>
             </div>
-            <ul className="bullets tight">
+            <ul className="plan__features">
               <li>1× 60-min 1-on-1</li>
               <li>Personal chart review</li>
               <li>Homework + checklist</li>
             </ul>
             <a
-              className="btn btn--primary btn--full"
               href="https://calendly.com/tradingoptics"
               target="_blank"
               rel="noreferrer"
+              className="btn btn--primary btn--block"
             >
               Book Starter
             </a>
-          </div>
+          </article>
 
-          {/* Bootcamp */}
-          <div className="card card--highlight">
-            <span className="ribbon">Best Value</span>
-            <div className="card__header">
-              <h3>Bootcamp</h3>
-              <div className="price">$349</div>
+          {/* Bootcamp – featured */}
+          <article className="plan plan--featured">
+            <div className="plan__badge">Best Value</div>
+
+            <div className="plan__header">
+              <h3 className="plan__title">Bootcamp</h3>
+              <div className="plan__price">
+                <span className="plan__price-main">$349</span>
+              </div>
             </div>
-            <ul className="bullets tight">
+
+            <ul className="plan__features">
               <li>4× 60-min sessions</li>
-              <li>Full syllabus &amp; exercises</li>
-              <li>Templates &amp; playbook</li>
+              <li>Full syllabus & exercises</li>
+              <li>Templates & playbook</li>
               <li>Email support between calls</li>
             </ul>
+
             <a
-              className="btn btn--primary btn--full"
               href="https://calendly.com/tradingoptics"
               target="_blank"
               rel="noreferrer"
+              className="btn btn--primary btn--block"
             >
               Start Bootcamp
             </a>
-          </div>
+          </article>
 
           {/* VIP */}
-          <div className="card">
-            <div className="card__header">
-              <h3>VIP</h3>
-              <div className="price">$99/mo</div>
+          <article className="plan">
+            <div className="plan__header">
+              <h3 className="plan__title">VIP</h3>
+              <div className="plan__price">
+                <span className="plan__price-main">$99</span>
+                <span className="plan__price-sub">/mo</span>
+              </div>
             </div>
-            <ul className="bullets tight">
+
+            <ul className="plan__features">
               <li>Weekly office hours</li>
               <li>Private community</li>
-              <li>Accountability &amp; feedback</li>
+              <li>Accountability & feedback</li>
             </ul>
+
             <a
-              className="btn btn--primary btn--full"
               href="https://calendly.com/tradingoptics"
               target="_blank"
               rel="noreferrer"
+              className="btn btn--primary btn--block"
             >
               Join VIP
             </a>
-          </div>
+          </article>
         </div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="grid2 section">
-        <div>
+      {/* Contact */}
+      <section className="contact" id="contact">
+        <div className="panel">
           <h2>Contact</h2>
-          <p className="muted">
+          <p>
             Email <a href="mailto:support@tradingoptics.org">support@tradingoptics.org</a> or
             book a session any time via Calendly.
           </p>
@@ -237,74 +230,44 @@ export default function App() {
             Book on Calendly
           </a>
         </div>
-
-        {/* Refund Policy */}
-        <div>
-          <details className="accordion">
-            <summary>Refund Policy</summary>
-            <div className="accordion__body">
-              <h4>1-on-1 Coaching Sessions</h4>
-              <ul className="bullets">
-                <li>
-                  <strong>Full refund</strong> if cancelled at least{" "}
-                  <strong>24 hours</strong> before the scheduled session.
-                </li>
-                <li>
-                  <strong>50% refund</strong> if cancelled within 24 hours.
-                </li>
-                <li>
-                  <strong>No refund</strong> for no-shows or missed sessions.
-                </li>
-              </ul>
-
-              <h4>Bootcamp Programs</h4>
-              <ul className="bullets">
-                <li>
-                  <strong>Full refund</strong> if you cancel{" "}
-                  <strong>before the first session</strong> begins.
-                </li>
-                <li>
-                  <strong>50% refund</strong> after the first session but before
-                  the second session.
-                </li>
-                <li>
-                  <strong>No refunds</strong> once two or more sessions have been
-                  attended.
-                </li>
-              </ul>
-
-              <h4>VIP Community / Mentorship</h4>
-              <ul className="bullets">
-                <li>VIP access is billed <strong>monthly</strong>.</li>
-                <li>
-                  You may <strong>cancel anytime</strong> before your next billing
-                  cycle.
-                </li>
-                <li>
-                  <strong>No partial refunds</strong> for unused time during an
-                  active month.
-                </li>
-              </ul>
-
-              <h4>Rescheduling</h4>
-              <ul className="bullets">
-                <li>
-                  Sessions may be rescheduled <strong>once without penalty</strong>{" "}
-                  if requested at least <strong>12 hours</strong> in advance.
-                </li>
-                <li>
-                  Repeated rescheduling or last-minute changes may be treated as a
-                  cancellation.
-                </li>
-              </ul>
-            </div>
-          </details>
-        </div>
       </section>
 
-      <footer className="footer">
-        © {new Date().getFullYear()} TradingOptics. All rights reserved.
-      </footer>
+      {/* Refund Policy (collapsible) */}
+      <section className="refund">
+        <details className="refund__details">
+          <summary className="refund__summary">Refund Policy</summary>
+          <div className="refund__content">
+            <h3>1-on-1 Coaching Sessions</h3>
+            <ul>
+              <li><strong>Full refund</strong> if cancelled at least <strong>24 hours</strong> before the scheduled session.</li>
+              <li><strong>50% refund</strong> if cancelled within 24 hours.</li>
+              <li><strong>No refund</strong> for no-shows or missed sessions.</li>
+            </ul>
+
+            <h3>Bootcamp Programs</h3>
+            <ul>
+              <li><strong>Full refund</strong> if you cancel <strong>before the first session</strong> begins.</li>
+              <li><strong>50% refund</strong> if you cancel after the first session but before the second session.</li>
+              <li><strong>No refunds</strong> once two or more sessions have been attended.</li>
+            </ul>
+
+            <h3>VIP Community / Mentorship</h3>
+            <ul>
+              <li>VIP access is billed <strong>monthly</strong>.</li>
+              <li>You may <strong>cancel anytime</strong> before your next billing cycle.</li>
+              <li><strong>No partial refunds</strong> for unused time during an active month.</li>
+            </ul>
+
+            <h3>Rescheduling</h3>
+            <ul>
+              <li>Sessions may be rescheduled <strong>once without penalty</strong> if requested at least <strong>12 hours</strong> in advance.</li>
+              <li>Repeated rescheduling or last-minute changes may be treated as a cancellation.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <footer className="footer">© {new Date().getFullYear()} TradingOptics. All rights reserved.</footer>
     </div>
   );
 }
